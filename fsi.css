@@ -1,0 +1,49 @@
+div.fsi-icons{
+    position: fixed;
+    z-index: 1000;
+}
+div.fsi-social-icons-right {
+    background: none repeat scroll 0 0 transparent;
+    height: 470px;
+ /*   margin-top: -250px;*/
+    right: 0;
+    top: 50%;
+    width: 80px;
+}
+.i8right {
+    background: none no-repeat scroll center center #44f;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    box-shadow: -4px 0 4px -4px #444;
+    display: block;
+    float: right;
+    height: 60px;
+    margin: 0 0 6px;
+    position: relative;
+    right: -62px;
+    transition: all 0.4s ease-out 0s;
+    width: 80px;
+}
+
+div.fsi-social-icons-left {
+    background: none repeat scroll 0 0 transparent;
+    height: 470px;
+    /*margin-top: -250px;*/
+    left: 0;
+    top: 50%;
+    width: 80px;
+}
+.i8left {
+    background: none no-repeat scroll center center #44f;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    box-shadow: -4px 0 4px -4px #444;
+    display: block;
+    float: right;
+    height: 60px;
+    margin: 0 0 6px;
+    position: relative;
+    left: -62px;
+    transition: all 0.4s ease-out 0s;
+    width: 80px;
+}
