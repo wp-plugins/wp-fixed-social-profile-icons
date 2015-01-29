@@ -3,7 +3,7 @@ Contributors: aman086
 Tags: social, facebook, twitter, instagram , google plus, social plugin, linkedin
 Donate link: http://amansaini.me
 Requires at least: 3.5
-Tested up to: 3.9.1
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 
@@ -38,6 +38,11 @@ Please send me your feedback from my <a href="http://amansaini.me">website</a> f
 2. backend
 
 == Changelog ==
+
+1.1
+-Added option to open links in new tab
+*Fixed few warning notices
+
 1.0
 Initial release
 

@@ -3,7 +3,7 @@
 Plugin Name: WP Fixed Social Profile Icons
 Plugin URI: http://amansaini.me
 Description: Add the Social profile icons fixed on right or left side of page.
-Version: 1.0
+Version: 1.1
 Author: Aman Saini
 Author URI:  http://amansaini.me/
 License: GPLv2 or later
@@ -41,15 +41,18 @@ class FixedSocialIcons {
 		$social_names = array( 'facebook', 'google', 'twitter', 'linkedin', 'youtube', 'tumblr', 'pinterest', 'instagram' );
 
 		$position = $setting['icons_position'];
+		$target = !empty($setting['new_tab'])?'_blank':'_self';
 
 ?>
 
 		<div class="fsi-icons fsi-social-icons-<?php echo $position; ?>">
 		<?php
 		foreach ( $social_names as $name ) {
-			if ( $setting['enable_'.$name] ) {
+			if ( !empty($setting['enable_'.$name]) ) {
+
+
 ?>
-				<a href="<?php echo $setting[$name.'_link']; ?>" class="<?php echo $name; ?>i7 i8<?php echo $position; ?>"></a>
+				<a target="<?php echo $target; ?>" href="<?php echo $setting[$name.'_link']; ?>" ta class="<?php echo $name; ?>i7 i8<?php echo $position; ?>"></a>
 
 		<?php }
 		} ?>
@@ -115,6 +118,7 @@ div.fsi-social-icons-right,div.fsi-social-icons-left{
 	function add_fsi_menu() {
 		add_menu_page( 'Fixed Social Icons Settings', 'Fixed Social Icons ', 'manage_options', 'fsi_settings', array( $this, 'add_fsi_setting_fields' ) );
 
+		//delete_option( 'fsi_settings' );
 		// If the social options don't exist, create them.
 		if ( false == get_option( 'fsi_settings' ) ) {
 
@@ -214,6 +218,8 @@ div.fsi-social-icons-right,div.fsi-social-icons-left{
 
 		add_settings_field( 'icons_position', 'Icons Position',  array( $this, 'icons_position' ), 'fsi_settings', 'fsi_general_setting', array( 'icons_position' ) );
 		add_settings_field( 'top_margin', 'Top Margin',  array( $this, 'add_icons' ), 'fsi_settings', 'fsi_general_setting', array( 'top_margin' ) );
+
+		add_settings_field( 'new_tab', 'Open links in new tab',  array( $this, 'new_tab' ), 'fsi_settings', 'fsi_general_setting', array( 'new_tab' ) );
 		//  Fields
 		add_settings_field( 'facebook_icon', 'Facebook Icon',  array( $this, 'add_icons' ), 'fsi_settings', 'fsi_general_setting', array( 'facebook' ) );
 		add_settings_field( 'facebook_link', 'Facebook Link',  array( $this, 'add_links' ), 'fsi_settings', 'fsi_general_setting', array( 'facebook' ) );
@@ -254,15 +260,25 @@ div.fsi-social-icons-right,div.fsi-social-icons-left{
 		echo $html;
 	}
 
+	function new_tab(){
+		$setting = get_option( 'fsi_settings' );
+		$val = empty($setting["new_tab"])?'':$setting["new_tab"];
+		$html = '<input type="checkbox" class="fsi-icon-check" id="new_tab" name="fsi_settings[new_tab]" value="1" ' . checked( 1, $val, false ) . '/> ';
+		echo $html;
+
+
+	}
+
 	function add_icons( $args ) {
 
 		$setting = get_option( 'fsi_settings' );
+		$val = empty($setting["enable_".$args[0]])?'':$setting["enable_".$args[0]];
 		if (  $args[0] != 'top_margin' ) {
 			// Note the ID and the name attribute of the element match that of the ID in the call to add_settings_field
 			$html = '<input class="regular-text" type="text" value="'.$setting[$args[0]].'" id="' . $args[0] . '"  name="fsi_settings[' . $args[0] . ']" />';
 
 			// We also access the show_header element of the options collection in the call to the checked() helper function
-			$html .= '<input type="checkbox" class="fsi-icon-check" id="enable_' . $args[0] . '" name="fsi_settings[enable_' . $args[0] . ']" value="1" ' . checked( 1, $setting["enable_".$args[0]], false ) . '/> ';
+			$html .= '<input type="checkbox" class="fsi-icon-check" id="enable_' . $args[0] . '" name="fsi_settings[enable_' . $args[0] . ']" value="1" ' . checked( 1,$val , false ) . '/> ';
 			$html .= '<label for="' . $args[0] . '"> Enable</label>';
 		}else {
 			$html = '<input class="" type="text" value="'.$setting[$args[0]].'" id="' . $args[0] . '"  name="fsi_settings[' . $args[0] . ']" />';
